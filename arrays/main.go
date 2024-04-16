@@ -16,4 +16,5 @@ func main() {
 	for i, v := range arr {
 		fmt.Printf("O valor do índice %d é %d\n", i, v)
 	}
+
 }
