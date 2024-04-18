@@ -48,4 +48,14 @@ func main() {
 		fmt.Println(string(buffer[:n]))
 	}
 
+	err = os.Remove("fileBytes.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	err = os.Remove("file.txt")
+	if err != nil {
+		panic(err)
+	}
+
 }
