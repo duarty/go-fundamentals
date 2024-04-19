@@ -21,17 +21,13 @@ type CEPData struct {
 	SIAFI       string `json:"siafi"`
 }
 
-const URL string = "http://viacep.com.br/ws/cep/json"
-
 func main() {
 	for _, cepnumber := range os.Args[1:] {
-		prefix := URL[:24]
-		sufix := URL[27:]
-		println(prefix + cepnumber + sufix)
-		req, err := http.Get(prefix + cepnumber + sufix)
+		req, err := http.Get("http://viacep.com.br/ws/" + cepnumber + "/json")
 		if err != nil {
 			panic(err)
 		}
+
 		defer req.Body.Close()
 		res, err := io.ReadAll(req.Body)
 		if err != nil {
@@ -43,8 +39,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(cep.Logradouro)
 
+		file, err := os.Create("cep.txt")
+		_, err = file.WriteString(cep.Logradouro)
+		//os.Remove("cep.txt")
+		fmt.Println(cep.Logradouro)
 	}
 
 }
